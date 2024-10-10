@@ -24,7 +24,7 @@ const EventSchema = new Schema({
     imageUrl: {type:String, required:true},
     startDate:{type:Date, default:Date.now},
     endDateTime:{type:Date, default:Date.now },
-    price :{type:"String"},
+    price :{type:String},
     isFree:{type:Boolean},
     url: {type:String},
     category: {type:Schema.Types.ObjectId, ref:'Category'},
