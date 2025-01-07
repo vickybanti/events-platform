@@ -11,8 +11,9 @@ export const createEvent = async ({event, userId, path}:CreateEventParams) => {
         await connectToDb();
         console.log(userId)
 
-        const organizer = await User.findById(userId);
+        // const organizer = await User.findById(userId);
 
+        const organizer = 78789199922
         if(!organizer){
             throw new Error("Organizer not found")
         }
