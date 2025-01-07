@@ -60,16 +60,34 @@ const EventForm = ({userId, type}:EventFormProps) => {
       async function onSubmit(values: z.infer<typeof eventFormSchema>) {
         const eventData = values;
 
-        let uploadedImageUrl = values.url;
+let uploadedImageUrl = values.url;
 
-        if(files.length>0){
-            const uploadedImages = await startUpload(files)
+if (files.length > 0) {
+  const uploadedImages = await startUpload(files);
 
-            if(!uploadedImageUrl){
-                return
-            }
-            uploadedImageUrl = uploadedImages[0].url
-        }
+  // If startUpload returns an array of numbers, map them to objects with URLs
+  const uploadedImageObjects = uploadedImages?.map((id) => ({
+    id,
+    url: `https://example.com/uploads/${id}`, // Replace this with your actual URL generation logic
+  }));
+
+  // Ensure uploadedImageObjects is valid
+  if (!uploadedImageObjects || uploadedImageObjects.length === 0) {
+    console.error("No images were uploaded.");
+    return;
+  }
+
+  uploadedImageUrl = uploadedImageObjects[0].url;
+
+  // Ensure uploadedImageUrl is valid before proceeding
+  if (!uploadedImageUrl) {
+    console.error("Uploaded image URL is undefined.");
+    return;
+  }
+
+
+console.log("Uploaded Image URL:", uploadedImageUrl);
+       }
         if(type === "Create"){
             try {
                 const newEvent = await createEvent({
@@ -194,8 +212,7 @@ const EventForm = ({userId, type}:EventFormProps) => {
                                    <p className='ml-3 whitespace-nowrap text-gray-500'>Start Date: </p>
                                    <DatePicker 
                                    selected={field.value} 
-                                   onChange={(date:Date) => field.onChange(date)} 
-                                   showTimeSelect
+                                   onChange={(date) => field.onChange(date)}                                    showTimeSelect
                                    timeInputLabel='Time:'
                                    dateFormat="MM/dd/yyyy h:mm aa"
                                    wrapperClassName="datePicker"
@@ -223,8 +240,7 @@ const EventForm = ({userId, type}:EventFormProps) => {
                                    <p className='ml-3 whitespace-nowrap text-gray-500'>End Date: </p>
                                    <DatePicker 
                                    selected={field.value} 
-                                   onChange={(date:Date) => field.onChange(date)} 
-                                   showTimeSelect
+                                   onChange={(date) => field.onChange(date)}                                    showTimeSelect
                                    timeInputLabel='Time:'
                                    dateFormat="MM/dd/yyyy h:mm aa"
                                    wrapperClassName="datePicker"
