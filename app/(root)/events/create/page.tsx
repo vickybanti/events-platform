@@ -5,11 +5,10 @@ import React from 'react'
 const CreateEvent = () => {
     const {sessionClaims} = auth()
 
-    // const userId = sessionClaims?.userId as string
-    const userId = "78982987711"
+    const userId = sessionClaims?.userId as string
   return (
     <>
-    <section className='flex flex-col bg-primary-100 bg-dotted-pattern bg-cover bg-center px-[120px] py-5 md:py-10'>
+    <section className='flex flex-col bg-primary-100 bg-dotted-pattern bg-cover bg-center lg:px-[150px] md:px-4 sm:px-4 py-5 md:py-10'>
     <h3 className='wrapper h3-bold text-center sm:text-left'>Create Event</h3>
 
     <div className='wrapper my-8'>
